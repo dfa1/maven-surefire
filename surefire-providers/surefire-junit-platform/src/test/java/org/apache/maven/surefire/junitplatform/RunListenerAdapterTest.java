@@ -513,7 +513,8 @@ public class RunListenerAdapterTest
 
         ReportEntry value = entryCaptor.getValue();
 
-        assertEquals( "some display name", value.getName() );
+        assertEquals( "myNamedTestMethod", value.getName() );
+        assertEquals( "some display name", value.getNameText() );
     }
 
     private static TestIdentifier newMethodIdentifier()

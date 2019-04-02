@@ -103,9 +103,21 @@ public class WrappedReportEntry
     }
 
     @Override
+    public String getSourceText()
+    {
+        return original.getSourceText();
+    }
+
+    @Override
     public String getName()
     {
         return original.getName();
+    }
+
+    @Override
+    public String getNameText()
+    {
+        return original.getNameText();
     }
 
     public String getClassMethodName()
