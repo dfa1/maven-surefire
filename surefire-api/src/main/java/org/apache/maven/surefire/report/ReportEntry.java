@@ -33,11 +33,25 @@ public interface ReportEntry
     String getSourceName();
 
     /**
+     * Human readable {@link #getSourceName() test class}.
+     *
+     * @return source text
+     */
+    String getSourceText();
+
+    /**
      * The name of the test case
      *
      * @return A string describing the test case
      */
     String getName();
+
+    /**
+     * Human readable {@link #getName() test case}.
+     *
+     * @return name text
+     */
+    String getNameText();
 
     /**
      * The group/category of the testcase

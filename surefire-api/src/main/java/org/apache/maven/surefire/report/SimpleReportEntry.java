@@ -238,4 +238,16 @@ public class SimpleReportEntry
     {
         return Objects.equals( stackTraceWriter, en.stackTraceWriter );
     }
+
+    @Override
+    public String getNameText()
+    {
+        return nameText;
+    }
+
+    @Override
+    public String getSourceText()
+    {
+        return sourceText;
+    }
 }
