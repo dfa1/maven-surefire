@@ -45,7 +45,7 @@ public class ConsoleOutputFileReporterTest
         File reportDir = new File( new File( System.getProperty( "user.dir" ), "target" ), "tmp1" );
         //noinspection ResultOfMethodCallIgnored
         reportDir.mkdirs();
-        ReportEntry reportEntry = new SimpleReportEntry( getClass().getName(), getClass().getName() );
+        ReportEntry reportEntry = new SimpleReportEntry( getClass().getName(), null, getClass().getName(), null );
         ConsoleOutputFileReporter reporter = new ConsoleOutputFileReporter( reportDir, null, null );
         reporter.testSetStarting( reportEntry );
         reporter.writeTestOutput( "some ", false, true );
@@ -73,7 +73,7 @@ public class ConsoleOutputFileReporterTest
         //noinspection ResultOfMethodCallIgnored
         reportDir.mkdirs();
         String suffixText = "sampleSuffixText";
-        ReportEntry reportEntry = new SimpleReportEntry( getClass().getName(), getClass().getName() );
+        ReportEntry reportEntry = new SimpleReportEntry( getClass().getName(), null, getClass().getName(), null );
         ConsoleOutputFileReporter reporter = new ConsoleOutputFileReporter( reportDir, suffixText, null );
         reporter.testSetStarting( reportEntry );
         reporter.writeTestOutput( "some ", false, true );
@@ -99,7 +99,7 @@ public class ConsoleOutputFileReporterTest
         reportDir.mkdirs();
         ConsoleOutputFileReporter reporter = new ConsoleOutputFileReporter( reportDir, null, null );
         reporter.writeTestOutput( "some text", false, true );
-        reporter.testSetCompleted( new SimpleReportEntry( getClass().getName(), getClass().getName() ) );
+        reporter.testSetCompleted( new SimpleReportEntry( getClass().getName(), null, getClass().getName(), null ) );
         reporter.close();
 
         File expectedReportFile = new File( reportDir, "null-output.txt" );
@@ -120,7 +120,7 @@ public class ConsoleOutputFileReporterTest
         //noinspection ResultOfMethodCallIgnored
         reportDir.mkdirs();
         final ConsoleOutputFileReporter reporter = new ConsoleOutputFileReporter( reportDir, null, null );
-        reporter.testSetStarting( new SimpleReportEntry( getClass().getName(), getClass().getName() ) );
+        reporter.testSetStarting( new SimpleReportEntry( getClass().getName(), null, getClass().getName(), null ) );
         ExecutorService scheduler = Executors.newFixedThreadPool( 10 );
         final ArrayList<Callable<Void>> jobs = new ArrayList<>();
         for ( int i = 0; i < 10; i++ )

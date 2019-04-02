@@ -127,7 +127,8 @@ final class RunListenerAdapter
                 default:
                     if ( isTest )
                     {
-                        runListener.testSucceeded( createReportEntry( testIdentifier, elapsed ) );
+                        String[] classMethodNames = toClassMethodName( testIdentifier );
+                        runListener.testSucceeded( createReportEntry( classMethodNames, null, elapsed ) );
                     }
                     else
                     {
@@ -150,9 +151,11 @@ final class RunListenerAdapter
     {
         testStartTime.remove( testIdentifier );
         String[] classMethodName = toClassMethodName( testIdentifier );
-        String className = classMethodName[1];
-        String methodName = classMethodName[3];
-        runListener.testSkipped( new SimpleReportEntry( className, methodName, reason ) );
+        String className = classMethodName[0];
+        String classText = classMethodName[1];
+        String methodName = classMethodName[2];
+        String methodText = classMethodName[3];
+        runListener.testSkipped( new SimpleReportEntry( className, classText, methodName, methodText, reason ) );
     }
 
     private SimpleReportEntry createTestSetReportEntry( TestIdentifier testIdentifier,
@@ -165,7 +168,7 @@ final class RunListenerAdapter
         String methodName = classMethodName[3];
         StackTraceWriter stw =
                 testExecutionResult == null ? null : toStackTraceWriter( className, methodName, testExecutionResult );
-        return new SimpleReportEntry( className, methodName, stw, elapsedTime, systemProperties );
+        return new SimpleReportEntry( className, null, methodName, null, stw, elapsedTime, systemProperties );
     }
 
     private SimpleReportEntry createTestSetReportEntry( TestIdentifier testIdentifier )
@@ -179,28 +182,25 @@ final class RunListenerAdapter
         return createTestSetReportEntry( testIdentifier, null, systemProperties, null );
     }
 
-    private SimpleReportEntry createReportEntry( TestIdentifier testIdentifier, Integer elapsedTime )
-    {
-        return createReportEntry( testIdentifier, (StackTraceWriter) null, elapsedTime );
-    }
-
     private SimpleReportEntry createReportEntry( TestIdentifier testIdentifier,
                                                  TestExecutionResult testExecutionResult, Integer elapsedTime )
     {
         String[] classMethodNames = toClassMethodName( testIdentifier );
         String realClassName = classMethodNames[0];
         String realMethodName = classMethodNames[2];
-        return createReportEntry( testIdentifier,
-                toStackTraceWriter( realClassName, realMethodName, testExecutionResult ), elapsedTime );
+        StackTraceWriter stackTraceWriter = toStackTraceWriter( realClassName, realMethodName, testExecutionResult );
+        return createReportEntry( classMethodNames, stackTraceWriter, elapsedTime );
     }
 
-    private SimpleReportEntry createReportEntry( TestIdentifier testIdentifier, StackTraceWriter stackTraceWriter,
+    private static SimpleReportEntry createReportEntry( String[] classMethodNames, StackTraceWriter stackTraceWriter,
                                                  Integer elapsedTime )
     {
-        String[] classMethodNames = toClassMethodName( testIdentifier );
-        String className = classMethodNames[1];
-        String methodName = classMethodNames[3];
-        return new SimpleReportEntry( className, methodName, stackTraceWriter, elapsedTime );
+        String realClassName = classMethodNames[0];
+        String classText = classMethodNames[1];
+        String realMethodName = classMethodNames[2];
+        String methodText = classMethodNames[3];
+        return new SimpleReportEntry( realClassName, classText, realMethodName, methodText,
+                stackTraceWriter, elapsedTime );
     }
 
     private StackTraceWriter toStackTraceWriter( String realClassName, String realMethodName,

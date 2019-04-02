@@ -33,14 +33,14 @@ public class WrappedReportEntryTest
     {
         String className = "surefire.testcase.JunitParamsTest";
         WrappedReportEntry wr =
-            new WrappedReportEntry( new SimpleReportEntry( className, null ), null, 12, null, null );
+            new WrappedReportEntry( new SimpleReportEntry( className, null, null, null ), null, 12, null, null );
         final String reportName = wr.getReportName();
         assertEquals( "surefire.testcase.JunitParamsTest", reportName );
     }
 
     public void testRegular()
     {
-        ReportEntry reportEntry = new SimpleReportEntry( "surefire.testcase.JunitParamsTest", "testSum" );
+        ReportEntry reportEntry = new SimpleReportEntry( "surefire.testcase.JunitParamsTest", null, "testSum", null );
         WrappedReportEntry wr = new WrappedReportEntry( reportEntry, null, 12, null, null );
         final String reportName = wr.getReportName();
         assertEquals( "surefire.testcase.JunitParamsTest", reportName );
@@ -49,7 +49,7 @@ public class WrappedReportEntryTest
     public void testGetReportNameWithParams()
     {
         String className = "[0] 1\u002C 2\u002C 3 (testSum)";
-        ReportEntry reportEntry = new SimpleReportEntry( className, null );
+        ReportEntry reportEntry = new SimpleReportEntry( className, null, null, null );
         WrappedReportEntry wr = new WrappedReportEntry( reportEntry, null, 12, null, null );
         final String reportName = wr.getReportName();
         assertEquals( "[0] 1, 2, 3 (testSum)", reportName );
@@ -58,7 +58,7 @@ public class WrappedReportEntryTest
     public void testElapsed()
     {
         String className = "[0] 1\u002C 2\u002C 3 (testSum)";
-        ReportEntry reportEntry = new SimpleReportEntry( className, null );
+        ReportEntry reportEntry = new SimpleReportEntry( className, null, null, null );
         WrappedReportEntry wr = new WrappedReportEntry( reportEntry, null, 12, null, null );
         String elapsedTimeSummary = wr.getElapsedTimeSummary();
         assertEquals( "[0] 1, 2, 3 (testSum)  Time elapsed: 0.012 s",

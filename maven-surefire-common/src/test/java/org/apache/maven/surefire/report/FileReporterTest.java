@@ -42,7 +42,7 @@ public class FileReporterTest
     public void testFileNameWithoutSuffix()
     {
         File reportDir = new File( "target" );
-        reportEntry = new SimpleReportEntry( this.getClass().getName(), testName );
+        reportEntry = new SimpleReportEntry( getClass().getName(), null, testName, null );
         WrappedReportEntry wrappedReportEntry =
             new WrappedReportEntry( reportEntry, ReportEntryType.SUCCESS, 12, null, null );
         reporter = new FileReporter( reportDir, null, Charset.defaultCharset() );
@@ -64,7 +64,7 @@ public class FileReporterTest
     {
         File reportDir = new File( "target" );
         String suffixText = "sampleSuffixText";
-        reportEntry = new SimpleReportEntry( this.getClass().getName(), testName );
+        reportEntry = new SimpleReportEntry( getClass().getName(), null, testName, null );
         WrappedReportEntry wrappedReportEntry =
             new WrappedReportEntry( reportEntry, ReportEntryType.SUCCESS, 12, null, null );
         reporter = new FileReporter( reportDir, suffixText, Charset.defaultCharset() );

@@ -42,7 +42,7 @@ public class CategorizedReportEntry
     public CategorizedReportEntry( String source, String name, String group, StackTraceWriter stackTraceWriter,
                                    Integer elapsed )
     {
-        super( source, name, stackTraceWriter, elapsed );
+        super( source, null, name, null, stackTraceWriter, elapsed );
         this.group = group;
     }
 
@@ -55,7 +55,7 @@ public class CategorizedReportEntry
     public CategorizedReportEntry( String source, String name, String group, StackTraceWriter stackTraceWriter,
                                    Integer elapsed, String message, Map<String, String> systemProperties )
     {
-        super( source, name, stackTraceWriter, elapsed, message, systemProperties );
+        super( source, null, name, null, stackTraceWriter, elapsed, message, systemProperties );
         this.group = group;
     }
 
@@ -65,7 +65,7 @@ public class CategorizedReportEntry
     {
         return group != null
             ? new CategorizedReportEntry( source, name, group, stackTraceWriter, elapsed, message, systemProperties )
-            : new SimpleReportEntry( source, name, stackTraceWriter, elapsed, message, systemProperties );
+            : new SimpleReportEntry( source, null, name, null, stackTraceWriter, elapsed, message, systemProperties );
     }
 
     @Override
